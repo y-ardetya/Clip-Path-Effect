@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import React, { Suspense, useRef } from "react";
 import { Text } from "@react-three/drei";
@@ -43,6 +43,7 @@ const CanvasOne = () => {
 
 const CanvasOneProp = () => {
   const firstRef = useRef();
+  const {width} = useThree((state) => state.viewport);
   useFrame((state, delta) => {
     firstRef.current.rotation.x += delta * 0.03;
     firstRef.current.rotation.y += delta * 0.03;
@@ -50,13 +51,13 @@ const CanvasOneProp = () => {
 
   return (
     <>
-      <mesh scale={3} ref={firstRef}>
+      <mesh scale={width / 5.01} ref={firstRef}>
         <sphereGeometry args={[1, 10, 10]} />
         <meshBasicMaterial color="black" wireframe />
       </mesh>
       <Text
         position={[0, 0, 3]}
-        scale={1}
+        scale={width / 12}
         font="/SedgwickAveDisplay-Regular.ttf"
       >
         DUALITY
@@ -77,6 +78,7 @@ const CanvasTwo = () => {
 };
 
 const CanvasTwoProp = () => {
+  const {width} = useThree((state) => state.viewport);
   const secondRef = useRef();
   useFrame((state, delta) => {
     secondRef.current.rotation.x += delta * 0.03;
@@ -84,14 +86,14 @@ const CanvasTwoProp = () => {
   });
   return (
     <>
-      <mesh scale={3} ref={secondRef}>
+      <mesh scale={width / 5.01} ref={secondRef}>
         <sphereGeometry args={[1, 10, 10]} />
         <meshBasicMaterial color="white" wireframe />
       </mesh>
       <Text
         position={[0, 0, 3]}
         color="hotpink"
-        scale={1}
+        scale={width / 12}
         font="/SedgwickAveDisplay-Regular.ttf"
       >
         DUALITY
